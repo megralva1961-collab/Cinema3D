@@ -115,7 +115,62 @@
                 </p>
 
                 <!-- Aquí se ubicarán el formulario y la tarjeta de resultados -->
-                 
+                <div class="card finance-card">
+                    <div class="card-body">
+
+                        <form id="formularioBootstrap">
+
+                            <div class="mb-3">
+                                <label for="nombres" class="form-label">Nombres</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="nombres"
+                                    name="nombres"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="apellidos" class="form-label">Apellidos</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="apellidos"
+                                    name="apellidos"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fechaNacimiento" class="form-label">
+                                    Fecha de nacimiento
+                                </label>
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="fechaNacimiento"
+                                    name="fechaNacimiento"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="ninos" class="form-label">
+                                    Cantidad de niños a cargo
+                                </label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="ninos"
+                                    name="ninos"
+                                    min="0"
+                                    value="0"
+                                    required>
+                            </div>
+
+                            <!-- En el paso 4 agregaremos radios y checkboxes -->
+
+                        </form>
+                    </div>
+                </div> 
             </div>
         </div>
     </div>
