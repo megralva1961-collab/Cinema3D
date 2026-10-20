@@ -16,14 +16,14 @@ class RegistroPersonal extends Model
     'estudios',
     'generos',
 ];
-    protected funcion casts(): array
+    protected function casts(): array
     {
         return [
-            'fecha_nacimiento' -> 'date',
-            'ninos'-> 'integer',
-            'madre_cabeza'-> 'boolean',
-            'estudios'-> 'boolean',
-            'generos'-> 'array',
+            'fecha_nacimiento' => 'date',
+            'ninos' => 'integer',
+            'madre_cabeza' => 'boolean',
+            'estudios' => 'boolean',
+            'generos' => 'array',
         ];       
     }
 
