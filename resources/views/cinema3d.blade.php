@@ -121,7 +121,7 @@
                         <form 
                         id="formularioBootstrap"
                         action="{{ route('registros.store')}}"
-                        methodo="post">
+                        method="POST">
                         @csrf
                             <div class="mb-3">
                                 <label for="nombres" class="form-label">Nombres</label>
@@ -261,8 +261,9 @@
                 <!-- Zona de confirmación de registros --->
                 <div
                     id="mensajeGuardado"
-                    class="alert alert-success mt-3
-                    style0"display:none;></div>
+                    class="alert alert-success mt-3"
+                    role="alert"
+                    style="display:none;"></div>
 
                 <!-- Zona de resultados -->
                 <div id="resultados" class="mt-5" style="display: none;">
@@ -285,7 +286,7 @@ crossorigin="anonymous">
 <script>
     const formulario = document.getElementById('formularioBootstrap');
     formulario.addEventListener('submit',
-        asyncfunction(e) {
+        async function(e) {
             
             // Previene la recarga de la página
             e.preventDefault(); 
@@ -297,7 +298,7 @@ crossorigin="anonymous">
             const contenidoResultados = document.getElementById('contenidoResultados');
             
             //Ocultar mensajes anteriores
-            mensaje.style.display= 'none';
+            mensaje.style.display = 'none';
             resultados.style.display = 'none';
             
             //Evitar envios repetidos mientras se procesa la solicitud
@@ -308,13 +309,13 @@ crossorigin="anonymous">
             try {
                 //Enviar los datos a Laravel
                 const respuesta = await fetch(formulario.action, {
-                    methodo: 'Post',
+                    method: 'POST',
                     headers: {
                         'Accept': 'application/json',
                         'X-Requested-With' : 'XMLHttpRequest'
 
                     },
-                    bodu: new FormDate(formulario)
+                    body: new FormData(formulario)
                 });
 
                 const data = await respuesta.json();
@@ -323,7 +324,8 @@ crossorigin="anonymous">
 
                 if (!respuesta.ok){
                     const errores = data.errors
-                    ? Object.values(data.errors).flat().join('\n'): data.message;
+                    ? Object.values(data.errors).flat().join('\n')
+                    : data.message;
 
                     throw new Error(errores || 'No fue posible guardar el registro.');
                 }
@@ -335,7 +337,7 @@ crossorigin="anonymous">
                     ? registro.generos.join(',')
                     : 'Ninguno seleccionado';
 
-                const respuestas =[
+                const respuestas = [
                     ['Numero de registro', registro.id],
                     ['Nombres', registro.nombres],
                     ['Apellidos', registro.apellidos],
@@ -343,26 +345,27 @@ crossorigin="anonymous">
                     ['Cantidad de niños a cargo'registro.ninos],
                     ['Madre cabeza de familia' registro.madreCabeza],
                     ['Esta realizando técnico/tecnólogo', registro.estudio],
-                    ['Generos de cine preferido', generoTexto]
+                    ['Generos de cine preferido', generosTexto]
                 ];
 
                 //Construir el resultado usando texto
-                contenidoResultados.replaceChildren();
+                contenidoResultados.replaceChildren(
                     ...respuestas.map(function ([etiqueta, valor]){
                         const parrafo = document.createElement('p');
                         const titulo = document.createElement('strong');
 
                         titulo.textContent = etiqueta + ':';
-                        parrafo.append(titulo, '' + valor);
+                        parrafo.append(titulo, ' ' + valor);
 
                         return parrafo; 
                     })
                 );
 
                 // Mostrar confirmacion y resultado
-                mensaje.textContent = data.msgfmt_parse_message
+                mensaje.textContent = data.message
                     + 'ID del registro:'
                     + registro.id;
+
                 mensaje.style.display = 'block';
                 resultados.style.display = 'block';
 
@@ -375,14 +378,14 @@ crossorigin="anonymous">
                 
             } catch (error) {
              
-            mensaje.ClassName = 'alert alert-danger mt-3';
-            mensaje.textContent = eror.message;
-            mensage.style.display = 'block';
+                mensaje.ClassName = 'alert alert-danger mt-3';
+                mensaje.textContent = eror.message;
+                mensage.style.display = 'block';
             
-            }finally (
+            } finally {
                 boton.disable = false;
-                boton.textContent = textooriginal;
-                
+                boton.textContent = textoOriginal;
+            }
         }
     );
 </script>

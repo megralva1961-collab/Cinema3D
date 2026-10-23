@@ -15,7 +15,7 @@ class RegistroPersonalController extends Controller
             'fechaNacimiento'=> ['required', 'date', 'before_or_equal:today'],
             'ninos' => ['required', 'integer', 'min:0'],
             'madreCabeza'=> ['required', Rule::in(['Sí', 'No'])],
-            'estudios' => ['required', Rule::in(['Sí', 'No'])],
+            'estudio' => ['required', Rule::in(['Sí', 'No'])],
             'generos' => ['nullable', 'array'],
             'generos.*' => ['string', Rule::in(['Acción', 'Comedia', 'Drama', 'Terror', 'Ciencia Ficción', 'Romance'])],
 
@@ -24,7 +24,7 @@ class RegistroPersonalController extends Controller
         $registro= RegistroPersonal::create([
             'nombres' => $datos['nombres'],
             'apellidos' => $datos['apellidos'],
-            'fecha_nacimiento' => $datos ['fechanacimiento'],
+            'fecha_nacimiento' => $datos ['fechaNacimiento'],
             'ninos' => $datos['ninos'],
             'madre_cabeza' =>$datos['madreCabeza'] === 'Sí',
             'estudio' => $datos['estudio'] === 'Sí',
