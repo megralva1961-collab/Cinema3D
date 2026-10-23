@@ -283,52 +283,108 @@ integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbIT
 crossorigin="anonymous">
 </script>
 <script>
-document.getElementById('formularioBootstrap').addEventListener('submit',
-function(e) {
-e.preventDefault(); // Previene la recarga de la página
-// Captura de valores
-const nombres = document.getElementById('nombres').value;
-const apellidos = document.getElementById('apellidos').value;
-const fecha = document.getElementById('fechaNacimiento').value;
-const ninos = document.getElementById('ninos').value;
-const madre =
-document.querySelector('input[name="madreCabeza"]:checked').value;
-const estudio =
-document.querySelector('input[name="estudio"]:checked').value;
-// Captura de múltiples checkboxes
-const generosSeleccionados = [];
-document.querySelectorAll('input[name="generos"]:checked').forEach(cb => {
-generosSeleccionados.push(cb.value);
-});
-const generosTexto = generosSeleccionados.length > 0 ?
-generosSeleccionados.join(', ') : 'Ninguno seleccionado';
-// Estructura de datos a presentar
-const respuestas = [
-['Nombres', nombres],
-['Apellidos', apellidos],
-['Fecha de nacimiento', fecha],
-['Cantidad de niños a cargo', ninos],
-['Madre cabeza de familia', madre],
-['Está realizando técnico/tecnólogo', estudio],
-['Géneros de cine preferidos', generosTexto]
-];
-// Renderizado dinámico en el DOM
-const contenidoResultados =
-document.getElementById('contenidoResultados');
-contenidoResultados.replaceChildren(...respuestas.map(([etiqueta,
-valor]) => {
-const parrafo = document.createElement('p');
-const titulo = document.createElement('strong');
-titulo.textContent = `${etiqueta}:`;
-parrafo.append(titulo, ` ${valor}`);
-return parrafo;
-}));
-// Muestra el contenedor y desplaza la vista hacia los resultados
-document.getElementById('resultados').style.display = 'block';
-document.getElementById('resultados').scrollIntoView({
-behavior: 'smooth'
-});
-});
+    const formulario = document.getElementById('formularioBootstrap');
+    formulario.addEventListener('submit',
+        asyncfunction(e) {
+            
+            // Previene la recarga de la página
+            e.preventDefault(); 
+
+            // Captura de valores de los campos
+            const boton = formulario.querySelector('button[type="submit"]');
+            const mensaje = document.getElementById('mensajeGuardado');
+            const resultados= document.getElementById('resultados');
+            const contenidoResultados = document.getElementById('contenidoResultados');
+            
+            //Ocultar mensajes anteriores
+            mensaje.style.display= 'none';
+            resultados.style.display = 'none';
+            
+            //Evitar envios repetidos mientras se procesa la solicitud
+            boton.disabled = true;
+            const textoOriginal = boton.textContent;
+            boton.textContent = 'Guardando...';
+
+            try {
+                //Enviar los datos a Laravel
+                const respuesta = await fetch(formulario.action, {
+                    methodo: 'Post',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With' : 'XMLHttpRequest'
+
+                    },
+                    bodu: new FormDate(formulario)
+                });
+
+                const data = await respuesta.json();
+
+                //Laravel puede responder con errores de validación (HTTP 422)
+
+                if (!respuesta.ok){
+                    const errores = data.errors
+                    ? Object.values(data.errors).flat().join('\n'): data.message;
+
+                    throw new Error(errores || 'No fue posible guardar el registro.');
+                }
+
+                // Solo llegamos aqui si Lavarel confirma el Guardado
+                const registro = data.registro;
+
+                const generosTexto = registro.generos.length > 0
+                    ? registro.generos.join(',')
+                    : 'Ninguno seleccionado';
+
+                const respuestas =[
+                    ['Numero de registro', registro.id],
+                    ['Nombres', registro.nombres],
+                    ['Apellidos', registro.apellidos],
+                    ['fecha de nacimiento', registro.fechaNacimiento],
+                    ['Cantidad de niños a cargo'registro.ninos],
+                    ['Madre cabeza de familia' registro.madreCabeza],
+                    ['Esta realizando técnico/tecnólogo', registro.estudio],
+                    ['Generos de cine preferido', generoTexto]
+                ];
+
+                //Construir el resultado usando texto
+                contenidoResultados.replaceChildren();
+                    ...respuestas.map(function ([etiqueta, valor]){
+                        const parrafo = document.createElement('p');
+                        const titulo = document.createElement('strong');
+
+                        titulo.textContent = etiqueta + ':';
+                        parrafo.append(titulo, '' + valor);
+
+                        return parrafo; 
+                    })
+                );
+
+                // Mostrar confirmacion y resultado
+                mensaje.textContent = data.msgfmt_parse_message
+                    + 'ID del registro:'
+                    + registro.id;
+                mensaje.style.display = 'block';
+                resultados.style.display = 'block';
+
+                resultados.scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                //Permitir un nuevo registro
+                formulario.reset();
+                
+            } catch (error) {
+             
+            mensaje.ClassName = 'alert alert-danger mt-3';
+            mensaje.textContent = eror.message;
+            mensage.style.display = 'block';
+            
+            }finally (
+                boton.disable = false;
+                boton.textContent = textooriginal;
+                
+        }
+    );
 </script>
 
 
