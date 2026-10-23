@@ -118,8 +118,11 @@
                 <div class="card finance-card">
                     <div class="card-body">
 
-                        <form id="formularioBootstrap">
-
+                        <form 
+                        id="formularioBootstrap"
+                        action="{{ route('registros.store')}}"
+                        methodo="post">
+                        @csrf
                             <div class="mb-3">
                                 <label for="nombres" class="form-label">Nombres</label>
                                 <input
