@@ -258,6 +258,12 @@
                         </form>
                     </div>
                 </div>
+                <!-- Zona de confirmación de registros --->
+                <div
+                    id="mensajeGuardado"
+                    class="alert alert-success mt-3
+                    style0"display:none;></div>
+
                 <!-- Zona de resultados -->
                 <div id="resultados" class="mt-5" style="display: none;">
                 <div class="card border-success finance-card results-card">
