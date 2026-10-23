@@ -208,13 +208,13 @@
                             <div class="col-md-4">
                             <div class="form-check">
                             <input class="form-check-input" type="checkbox"
-                            name="generos" value="Acción" id="accion">
+                            name="generos¨[]" value="Acción" id="accion">
                             <label class="form-check-label"
                             for="accion">Acción</label>
                             </div>
                             <div class="form-check">
                             <input class="form-check-input" type="checkbox"
-                            name="generos" value="Comedia" id="comedia">
+                            name="generos[]" value="Comedia" id="comedia">
                             <label class="form-check-label"
                             for="comedia">Comedia</label>
                             </div>
@@ -222,13 +222,13 @@
                             <div class="col-md-4">
                             <div class="form-check">
                             <input class="form-check-input" type="checkbox"
-                            name="generos" value="Drama" id="drama">
+                            name="generos[]" value="Drama" id="drama">
                             <label class="form-check-label"
                             for="drama">Drama</label>
                             </div>
                             <div class="form-check">
                             <input class="form-check-input" type="checkbox"
-                            name="generos" value="Terror" id="terror">
+                            name="generos[]" value="Terror" id="terror">
                             <label class="form-check-label"
                             for="terror">Terror</label>
                             </div>
@@ -236,13 +236,13 @@
                             <div class="col-md-4">
                             <div class="form-check">
                             <input class="form-check-input" type="checkbox"
-                            name="generos" value="Ciencia Ficción" id="scifi">
+                            name="generos[]" value="Ciencia Ficción" id="scifi">
                             <label class="form-check-label" for="scifi">Ciencia
                             Ficción</label>
                             </div>
                             <div class="form-check">
                             <input class="form-check-input" type="checkbox"
-                            name="generos" value="Romance" id="romance">
+                            name="generos[]" value="Romance" id="romance">
                             <label class="form-check-label"
                             for="romance">Romance</label>
                             </div>
