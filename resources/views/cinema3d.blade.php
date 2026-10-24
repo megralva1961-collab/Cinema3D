@@ -313,7 +313,6 @@ crossorigin="anonymous">
                     headers: {
                         'Accept': 'application/json',
                         'X-Requested-With' : 'XMLHttpRequest'
-
                     },
                     body: new FormData(formulario)
                 });
@@ -342,8 +341,8 @@ crossorigin="anonymous">
                     ['Nombres', registro.nombres],
                     ['Apellidos', registro.apellidos],
                     ['fecha de nacimiento', registro.fechaNacimiento],
-                    ['Cantidad de niños a cargo'registro.ninos],
-                    ['Madre cabeza de familia' registro.madreCabeza],
+                    ['Cantidad de niños a cargo', registro.ninos],
+                    ['Madre cabeza de familia', registro.madreCabeza],
                     ['Esta realizando técnico/tecnólogo', registro.estudio],
                     ['Generos de cine preferido', generosTexto]
                 ];
@@ -363,7 +362,7 @@ crossorigin="anonymous">
 
                 // Mostrar confirmacion y resultado
                 mensaje.textContent = data.message
-                    + 'ID del registro:'
+                    + 'ID del registro: '
                     + registro.id;
 
                 mensaje.style.display = 'block';

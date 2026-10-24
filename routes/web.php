@@ -7,6 +7,9 @@ Route::get('/', function () {
     return view('cinema3d');
 });
 
-Route::post('/registros', [RegistroPersonalController::class, 'store'])->name('registros.store');
+Route::post(
+    '/registros', 
+    [RegistroPersonalController::class, 'store']
+)->name('registros.store');
 
     

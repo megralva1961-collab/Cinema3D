@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\RegistroPersonal;
 use Illuminate\Http\Request;
-use Illuminate\validation\Rule;
+use Illuminate\Validation\Rule;
 
 class RegistroPersonalController extends Controller
 {
@@ -32,24 +33,19 @@ class RegistroPersonalController extends Controller
             
         ]);
 
-        return response() ->json([
+        return response()->json([
             'message' => 'Registro guardado correctamente.',
             'registro' => [
-                'id' => $registro ->id,
-                'nombre' => $registro->nombres,
+                'id' => $registro->id,
+                'nombres' => $registro->nombres,
                 'apellidos' => $registro->apellidos,
                 'fechaNacimiento' => $registro->fecha_nacimiento->format('Y-m-d'),
                 'ninos'=> $registro->ninos,
                 'madreCabeza' => $registro->madre_cabeza ? 'Sí' : 'No',
-                'estudio' => $registro->madre_cabeza ? 'Sí' : 'No',
-                'generos' => $registr0 ->generos ?? [],
+                'estudio' => $registro->estudio ? 'Sí' : 'No',
+                'generos' => $registro ->generos ?? [],
             ],
         ], 201);
 
-
-
-
-
     }
-//
 }
